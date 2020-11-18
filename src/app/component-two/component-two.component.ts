@@ -1,23 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { CommunicationServiceService } from '../communication-service.service';
+import { Observable } from 'rxjs';
+import { CommunicationService } from '../communication.service';
 
 @Component({
   selector: 'app-component-two',
   templateUrl: './component-two.component.html',
   styleUrls: ['./component-two.component.scss']
 })
-export class ComponentTwoComponent implements OnInit {
+export class ComponentTwoComponent {
 
-  constructor(private communicationService: CommunicationServiceService) { }
+  sharedResource$: Observable<number>;
 
-  ngOnInit(): void {
-    this.communicationService.getSharedResource().subscribe(val => console.log(val))
+  constructor(private communicationService: CommunicationService) { 
+    this.sharedResource$ = this.communicationService.getSharedResource()
   }
 
-  count = 0
-
   click() {
-    this.count += 1
-    this.communicationService.updateSharedResource(`new value ${this.count}`)
+    this.communicationService.updateSharedResource(2)
   }
 }

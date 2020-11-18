@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommunicationServiceService } from '../communication-service.service';
+import { CommunicationService } from '../communication.service';
 
 @Component({
   selector: 'app-component-one',
@@ -8,16 +8,15 @@ import { CommunicationServiceService } from '../communication-service.service';
 })
 export class ComponentOneComponent implements OnInit {
 
-  constructor(private communicationService: CommunicationServiceService) { }
+  constructor(private communicationService: CommunicationService) { }
 
   ngOnInit(): void {
-    console.log("ComponentOne", this.communicationService.sharedResource)
-    this.communicationService.getSharedResource().subscribe(val => console.log(val))
+    this.communicationService.getSharedResource().subscribe(val => console.log(`Component One ${val}`))
   }
 
 
   click() {
-    this.communicationService.updateSharedResource(`NoooooOOo`)
+    this.communicationService.updateSharedResource(1)
   }
 
 }
